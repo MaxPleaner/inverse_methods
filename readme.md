@@ -1,3 +1,5 @@
+### Explanation
+
 Two methods which can be added on Object:
 
 Both use `debug_inspector` to do some stuff with Ruby that wouldn't otherwise be possible.
@@ -25,3 +27,13 @@ The second method is `chain_to`, which is perhaps the 'functional programming' a
     puts foo # => [3,2,1]
 
 Only the first symbol (`:"[2].concat"`) gets the original argument, `[1]`, passed when evaluated. The next symbol `:"[3].concat"` gets the first evaluation's result (`[2, 1]`) passed.
+
+### Usage
+
+Can be included as a global patch on object:
+
+    Object.include InverseMethods
+
+Or as a refinement:
+
+    using InverseMethods
