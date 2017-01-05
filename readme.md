@@ -24,4 +24,4 @@ The second method is `chain_to`, which is perhaps the 'functional programming' a
     [1].chain_to *%i{[0].concat [2].concat}
     puts foo # => [0,1,2]
 
-Only the first symbol (`:"[].concat"`) gets the original argument, `[1]`, passed when evaluated. The next symbol `:"[2].concat"` gets the first evaluation's result (`[0, 1]`) passed.
+Only the first symbol (`:"[0].concat"`) gets the original argument, `[1]`, passed when evaluated. The next symbol `:"[2].concat"` gets the first evaluation's result (`[0, 1]`) passed.
