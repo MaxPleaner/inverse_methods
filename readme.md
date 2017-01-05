@@ -21,7 +21,7 @@ The reason is that `:foo.push` is a `SyntaxError`. It needs to be written as `:"
 The second method is `chain_to`, which is perhaps the 'functional programming' alternative to `pass_to` (and `tap`, which it's based on). It works similarly:
 
     foo = []
-    [1].chain_to *%i{[0].concat [2].concat}
-    puts foo # => [0,1,2]
+    [1].chain_to *%i{[2].concat [3].concat}
+    puts foo # => [3,2,1]
 
-Only the first symbol (`:"[0].concat"`) gets the original argument, `[1]`, passed when evaluated. The next symbol `:"[2].concat"` gets the first evaluation's result (`[0, 1]`) passed.
+Only the first symbol (`:"[2].concat"`) gets the original argument, `[1]`, passed when evaluated. The next symbol `:"[3].concat"` gets the first evaluation's result (`[2, 1]`) passed.
