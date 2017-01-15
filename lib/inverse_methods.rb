@@ -12,6 +12,7 @@ module InverseMethods
       caller_context = inspector.frame_binding(2)
       syms.each { |sym| EvalProc.call(sym, self, caller_context) }
     }
+    self
   end
 
   def chain_to(*syms)
