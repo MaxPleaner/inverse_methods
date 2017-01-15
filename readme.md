@@ -21,14 +21,17 @@ Both use `debug_inspector` to do some stuff with Ruby that wouldn't otherwise be
 
     foo = []
     1.pass_to *%i{ foo.push foo.push }
+    # => 1
     puts foo # => [1,1]
 
 The caller is being passed as an argument (serialized using `Marshal.dump`), and the symbols in the list are methods which it is passed to. They are evaluated in the caller context, which is why the local variable `foo` can be referenced.
 
+The method names passed to `pass_to` are not chained. This is why `[1,1]` was returned instead of `[1, [...]]` (the three dots being a recursive reference). The `foo.push 1` calls happen independently of one another.  
+
 The above example, if modified like so, wouldn't work:
 
     foo = []
-    1.pass_to :foo.push :foo.push
+    1.pass_to :foo.push, :foo.push
     puts foo
 
 The reason is that `:foo.push` is a `SyntaxError`. It needs to be written as `:"foo.push"`, which the `%i{ array.of symbols }` shorthand would do automatically.
