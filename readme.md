@@ -1,3 +1,16 @@
+### Install
+
+`gem install inverse_methods`
+`require 'inverse_methods'`
+
+## Accessing methods
+
+There is a single module `InverseMethods` which can be included where it's needed or patched on `Object` for global access.
+
+To load it globally, use `Object.include InverseMethods`. Or use a more specific scope such as `MyClass.include InverseMethods` or `MyClass.extend InverseMethods`.
+
+It can be used as a refinement: `using InverseMethods`.
+
 ### Explanation
 
 Two methods which can be added on Object:
