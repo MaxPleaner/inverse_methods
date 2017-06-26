@@ -20,7 +20,7 @@ Both use `debug_inspector` to do some stuff with Ruby that wouldn't otherwise be
 `pass_to` is kind of like a reverse tap. It still works as a "tap" (it returns the caller) but takes arguments differently:
 
     foo = []
-    1.pass_to *%i{ foo.push foo.push }
+    1.pass_to %i{ foo.push foo.push }
     # => 1
     puts foo # => [1,1]
 
@@ -31,7 +31,7 @@ The method names passed to `pass_to` are not chained. This is why `[1,1]` was re
 The above example, if modified like so, wouldn't work:
 
     foo = []
-    1.pass_to :foo.push, :foo.push
+    1.pass_to [:foo.push, :foo.push]
     puts foo
 
 The reason is that `:foo.push` is a `SyntaxError`. It needs to be written as `:"foo.push"`, which the `%i{ array.of symbols }` shorthand would do automatically.
@@ -39,7 +39,7 @@ The reason is that `:foo.push` is a `SyntaxError`. It needs to be written as `:"
 The second method is `chain_to`, which is perhaps the 'functional programming' alternative to `pass_to` (and `tap`, which it's based on). It works similarly:
 
     foo = []
-    [1].chain_to *%i{[2].concat [3].concat}
+    [1].chain_to %i{[2].concat [3].concat}
     puts foo # => [3,2,1]
 
 Only the first symbol (`:"[2].concat"`) gets the original argument, `[1]`, passed when evaluated. The next symbol `:"[3].concat"` gets the first evaluation's result (`[2, 1]`) passed.

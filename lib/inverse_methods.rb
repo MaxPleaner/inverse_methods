@@ -8,6 +8,7 @@ EvalProc = ->(sym, argument, context){
 module InverseMethods
 
   def pass_to(*syms)
+    syms = syms[0] if syms[0].is_a?(Array)
     RubyVM::DebugInspector.open { |inspector|
       caller_context = inspector.frame_binding(2)
       syms.each { |sym| EvalProc.call(sym, self, caller_context) }
@@ -16,6 +17,7 @@ module InverseMethods
   end
 
   def chain_to(*syms)
+    syms = syms[0] if syms[0].is_a?(Array)
     RubyVM::DebugInspector.open { |inspector|
       caller_context = inspector.frame_binding(2)
       initial_result = EvalProc.call syms.shift, self, caller_context
